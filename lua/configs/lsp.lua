@@ -1,4 +1,5 @@
 local status, nvim_lsp = pcall(require, "lspconfig")
+
 if not status then
   return
 end
@@ -35,7 +36,6 @@ nvim_lsp.tsserver.setup({
 
 -- Java
 nvim_lsp.jdtls.setup({
-  on_attach = on_attach,
   capabilities = capabilities,
 })
 
