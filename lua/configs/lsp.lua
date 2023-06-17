@@ -43,6 +43,13 @@ nvim_lsp.jdtls.setup({
 nvim_lsp.lua_ls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { 'vim' }
+      }
+    }
+  }
 })
 
 -- CSS
