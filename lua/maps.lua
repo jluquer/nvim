@@ -1,18 +1,18 @@
 local function map(mode, lhs, rhs)
-	vim.keymap.set(mode, lhs, rhs, { silent = true })
+  vim.keymap.set(mode, lhs, rhs, { silent = true })
 end
 
 local status, telescope = pcall(require, "telescope.builtin")
 if status then
-	-- Telescope
-	map("n", "<leader>ff", telescope.find_files)
-	map("n", "<leader>fg", telescope.live_grep)
-	map("n", "<leader>fb", telescope.buffers)
-	map("n", "<leader>fh", telescope.help_tags)
-	map("n", "<leader>fs", telescope.git_status)
-	map("n", "<leader>fc", telescope.git_commits)
+  -- Telescope
+  map("n", "<leader>ff", telescope.find_files)
+  map("n", "<leader>fg", telescope.live_grep)
+  map("n", "<leader>fb", telescope.buffers)
+  map("n", "<leader>fh", telescope.help_tags)
+  map("n", "<leader>fs", telescope.git_status)
+  map("n", "<leader>fc", telescope.git_commits)
 else
-	print("Telescope not found")
+  print("Telescope not found")
 end
 
 -- <leader> = the space key
@@ -27,7 +27,7 @@ map("n", "<leader>q", "<CMD>q<CR>")
 map("i", "kj", "<ESC>")
 
 -- Windows
-map("n", "<leader>ñ", "<CMD>vsplit<CR>")
+map("n", "<leader>v", "<CMD>vsplit<CR>")
 map("n", "<leader>p", "<CMD>split<CR>")
 
 -- NeoTree
@@ -39,7 +39,7 @@ map("n", "<TAB>", "<CMD>bnext<CR>")
 map("n", "<S-TAB>", "<CMD>bprevious<CR>")
 
 -- Terminal
-map("n", "<leader>th", "<CMD>ToggleTerm size=10 direction=horizontal<CR>")
+map("n", "<leader>j", "<CMD>ToggleTerm size=10 direction=horizontal<CR>")
 map("n", "<leader>tv", "<CMD>ToggleTerm size=80 direction=vertical<CR>")
 map("t", "<esc>", "<C-\\><C-n>")
 
