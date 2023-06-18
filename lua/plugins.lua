@@ -175,6 +175,16 @@ return require("packer").startup(function(use)
     end
   }
 
+  -- WhichKey
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+      require("configs.which-key")
+    end
+  }
+
   use({
     "xiyaowong/nvim-transparent",
     config = function()
