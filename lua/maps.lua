@@ -1,20 +1,26 @@
 -- <leader> = the space key
 
 local function map(mode, lhs, rhs)
-  vim.keymap.set(mode, lhs, rhs, { silent = true })
+	vim.keymap.set(mode, lhs, rhs, { silent = true })
 end
 
 local t_status, telescope = pcall(require, "telescope.builtin")
 
 if t_status then
-  map("n", "<C-p>", telescope.find_files)
+	map("n", "<C-p>", telescope.find_files)
 end
 
 -- Save
-map("n", "<leader>w", "<CMD>update<CR>")
+map("n", "<C-s>", "<CMD>update<CR>")
 
 -- Quit
 map("n", "<leader>q", "<CMD>q<CR>")
+
+-- Lines
+map("n", "<A-k>", ":m .-2<CR>")
+map("v", "<A-k>", ":m '<-2<CR>gv=gv")
+map("n", "<A-j>", ":m .+1<CR>")
+map("v", "<A-j>", ":m '>+1<CR>gv=gv")
 
 -- Exit insert mode
 map("i", "kj", "<ESC>")
@@ -34,7 +40,7 @@ map("n", "<S-TAB>", "<CMD>bprevious<CR>")
 -- Terminal
 map("n", "<leader>j", "<CMD>ToggleTerm size=10 direction=horizontal<CR>")
 map("n", "<leader>tv", "<CMD>ToggleTerm size=80 direction=vertical<CR>")
-map("t", "<esc>", "<C-\\><C-n>")
+-- map("t", "<esc>", "<C-\\><C-n>")
 
 -- Markdown Preview
 map("n", "<leader>m", "<CMD>MarkdownPreview<CR>")
