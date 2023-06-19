@@ -14,7 +14,7 @@ end
 map("n", "<C-s>", "<CMD>update<CR>")
 
 -- Quit
-map("n", "<leader>q", "<CMD>q<CR>")
+map("n", "<C-q>", "<CMD>q<CR>")
 
 -- Lines
 map("n", "<A-k>", ":m .-2<CR>")
@@ -38,8 +38,9 @@ map("n", "<TAB>", "<CMD>bnext<CR>")
 map("n", "<S-TAB>", "<CMD>bprevious<CR>")
 
 -- Terminal
-map("n", "<leader>j", "<CMD>ToggleTerm size=10 direction=horizontal<CR>")
-map("n", "<leader>tv", "<CMD>ToggleTerm size=80 direction=vertical<CR>")
+map({ "n", "i" }, "<C-t>", "<CMD>ToggleTerm size=10 direction=horizontal<CR>")
+map("t", "<C-t>", "<CMD>ToggleTerm<CR>")
+-- map("n", "<leader>tv", "<CMD>ToggleTerm size=80 direction=vertical<CR>")
 -- map("t", "<esc>", "<C-\\><C-n>")
 
 -- Markdown Preview
