@@ -61,7 +61,10 @@ nvim_lsp.lua_ls.setup({
 nvim_lsp.powershell_es.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	cmd = { "powershell_es", "-nologo", "-command" },
+	bundle_path = "C:/Users/Jluque/.config/powershell/PowerShellEditorServices",
+	shell = "powershell.exe",
+	-- cmd = { "powershell", "-NoLogo", "-NoProfile", "-NonInteractive", "-Command", "Invoke-EditorServices" },
+	-- cmd = { "powershell_es", "-nologo", "-command" },
 })
 
 -- CSS
