@@ -3,7 +3,7 @@
 ## Local install
 
 * Go to [Packer.nvim](https://github.com/wbthomason/packer.nvim) and install it.
-* Open neovim and use command PackerInstall
+* Open neovim and use command `PackerInstall`
 * Close and the config is finished :)
 
 ## Note
