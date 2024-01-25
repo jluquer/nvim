@@ -1,4 +1,3 @@
-
 local status, neotree = pcall(require, "neo-tree")
 
 if not status then
@@ -6,7 +5,10 @@ if not status then
 end
 
 neotree.setup({
-  filesystem = {
-    follow_current_file = true,
-  }
+	filesystem = {
+		follow_current_file = true,
+		window = {
+			position = "right",
+		},
+	},
 })

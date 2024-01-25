@@ -8,10 +8,7 @@ end
 
 local leader_mappings = { prefix = "<leader>" }
 wk.register({
-	b = {
-		name = "Buffers",
-		a = { "<cmd>Telescope buffers<cr>", "Active" },
-	},
+	b = { "<cmd>Telescope buffers<cr>", "Active buffers" },
 	f = {
 		name = "File",
 		f = { "<cmd>Telescope find_files<cr>", "Find File" },
@@ -25,16 +22,17 @@ wk.register({
 	},
 	h = {
 		name = "Help",
-		t = { "<cmd>Telescope help_tags<cr>", "Telescope help tags" },
+		t = { "<cmd>Telescope<cr>", "Telescope" },
+		h = { "<cmd>Telescope help_tags<cr>", "Telescope help tags" },
 	},
 	l = {
-		name = "LSP",
+		name = "Code",
 		c = { name = "Code action" },
 		f = { name = "Format" },
-		r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
+		o = { "<cmd>Telescope lsp_document_symbols<cr>", "Document symbols" },
 	},
 	s = {
 		name = "Search",
-		g = { "<cmd>Telescope live_grep<cr>", "live grep" },
+		g = { "<cmd>Telescope live_grep<cr>", "Search in project" },
 	},
 }, leader_mappings)

@@ -25,6 +25,7 @@ ts.setup({
 		"css",
 		"html",
 		"lua",
+		"go",
 	},
 	rainbow = {
 		enable = true,

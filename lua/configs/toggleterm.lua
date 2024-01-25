@@ -6,7 +6,7 @@ end
 
 toggleterm.setup({
 	size = 10,
-	open_mapping = [[<F7>]],
+	open_mapping = [[<A-i>]],
 	shading_factor = 2,
 	direction = "float",
 	float_opts = {
