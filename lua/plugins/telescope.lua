@@ -19,10 +19,11 @@ return {
   },
 
   keys = {
-    { '<leader>gg', '<cmd>lua _LAZYGIT_TOGGLE()<CR>',         desc = 'Lazygit' },
-    { "<leader>:",  "<cmd>Telescope command_history<cr>",     desc = "Command History" },
-    { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
-    { "<leader>sD", "<cmd>Telescope diagnostics<cr>",         desc = "Workspace diagnostics" },
+    { '<leader>gg', '<cmd>lua _LAZYGIT_TOGGLE()<CR>',            desc = 'Lazygit' },
+    { '<leader>ld', require('utils.telescope').toggleLazydocker, desc = 'Lazydocker' },
+    { "<leader>:",  "<cmd>Telescope command_history<cr>",        desc = "Command History" },
+    { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>",    desc = "Document diagnostics" },
+    { "<leader>sD", "<cmd>Telescope diagnostics<cr>",            desc = "Workspace diagnostics" },
   },
 
   opts = {

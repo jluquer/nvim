@@ -31,7 +31,7 @@ return {
           { action = "ene | startinsert", desc = " New file", icon = " ", key = "n" },
           { action = "Telescope oldfiles", desc = " Recent files", icon = " ", key = "r" },
           { action = "Telescope live_grep", desc = " Find text", icon = " ", key = "g" },
-          { action = 'lua require("config.utils").openConfig()', desc = " Config", icon = " ", key = "c" },
+          { action = require("utils").openConfig, desc = " Config", icon = " ", key = "c" },
           { action = "qa", desc = " Quit", icon = " ", key = "q" },
         },
         footer = function()
