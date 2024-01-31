@@ -1,8 +1,13 @@
 local M = {}
 
-function M.open_config()
-  vim.cmd('cd ~/.config/nvim')
-  require("telescope.builtin").find_files()
-end
+setmetatable(M, {
+  __index = function(t, k)
+    if M[k] then
+      return M[k]
+    end
+    t[k] = require("utils." .. k)
+    return t[k]
+  end,
+})
 
 return M

@@ -31,7 +31,7 @@ return {
           { action = "ene | startinsert", desc = " New file", icon = " ", key = "n" },
           { action = "Telescope oldfiles", desc = " Recent files", icon = " ", key = "r" },
           { action = "Telescope live_grep", desc = " Find text", icon = " ", key = "g" },
-          { action = require("utils").open_config, desc = " Config", icon = " ", key = "c" },
+          { action = require("utils.telescope").open_config, desc = " Config", icon = " ", key = "c" },
           { action = "qa", desc = " Quit", icon = " ", key = "q" },
         },
         footer = function()
