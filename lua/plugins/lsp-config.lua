@@ -15,19 +15,11 @@ return {
   },
   config = function()
     -- UI Popup borders
-    vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-      vim.lsp.handlers.hover, {
-        border = 'rounded',
-      }
-    )
-
+    local float_ui = { border = 'rounded' }
+    vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, float_ui)
+    vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, float_ui)
+    vim.diagnostic.config { float = float_ui, }
     vim.cmd [[highlight! link NormalFloat Text]]
-
-    vim.diagnostic.config {
-      float = {
-        border = 'rounded',
-      },
-    }
 
     -- [[ Configure LSP ]]
     --  This function gets run when an LSP connects to a particular buffer.
