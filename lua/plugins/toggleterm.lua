@@ -1,4 +1,4 @@
-local shell = vim.fn.has("unix") == 0 and "pwsh.exe" or vim.o.shell
+local shell = require('utils').is_windows() and "pwsh.exe" or vim.o.shell
 
 return {
   'akinsho/toggleterm.nvim',
@@ -20,9 +20,10 @@ return {
   },
 
   keys = {
-    { "<C-t>",     "<CMD>ToggleTerm size=10 direction=horizontal<CR>", mode = { "n", "i", 't' }, desc = 'Toggle horizontal terminal' },
-    { "<leader>t", "<CMD>ToggleTerm size=10 direction=horizontal<CR>", mode = { "n" },           desc = 'Toggle horizontal terminal' },
-    { "<A-i>",     "<cmd>ToggleTerm direction=float<CR>",              mode = { "n", "i", 't' }, desc = 'Toggle floating terminal' },
+    { '<C-t>',           "<CMD>ToggleTerm size=10 direction=horizontal<CR>", mode = { "n", "i", 't' }, desc = 'Toggle horizontal terminal' },
+    { '<leader>t',       "<CMD>ToggleTerm size=10 direction=horizontal<CR>", mode = { "n" },           desc = 'Toggle horizontal terminal' },
+    { '<A-i>',           "<cmd>ToggleTerm direction=float<CR>",              mode = { "n", "i", 't' }, desc = 'Toggle floating terminal' },
+    { '<Esc><Esc><Esc>', '<C-\\><C-n>',                                      mode = 't' },
   },
 
   config = true,

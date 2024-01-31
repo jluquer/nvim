@@ -35,6 +35,3 @@ map("n", "<C-Left>", "<C-w><")
 map("n", "<C-Right>", "<C-w>>")
 map("n", "<C-Up>", "<C-w>+")
 map("n", "<C-Down>", "<C-w>-")
-
--- Terminal
-map('t', '<Esc><Esc><Esc><Esc>', '<C-\\><C-n>')
