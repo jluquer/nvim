@@ -31,7 +31,7 @@ map({ 'n', 'i' }, "<C-k>", "<C-w>k")
 map({ 'n', 'i' }, "<C-j>", "<C-w>j")
 
 -- Resize Windows
-map("n", "<C-Left>", "<C-w><")
-map("n", "<C-Right>", "<C-w>>")
-map("n", "<C-Up>", "<C-w>+")
-map("n", "<C-Down>", "<C-w>-")
+map("n", "<A-Left>", "<C-w><")
+map("n", "<A-Right>", "<C-w>>")
+map("n", "<A-Up>", "<C-w>+")
+map("n", "<A-Down>", "<C-w>-")
