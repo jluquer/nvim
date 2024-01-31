@@ -1,4 +1,5 @@
 -- Fuzzy Finder (files, lsp, etc)
+local utils = require('utils.telescope')
 return {
   'nvim-telescope/telescope.nvim',
   branch = '0.1.x',
@@ -18,13 +19,17 @@ return {
     },
   },
 
-  keys = {
-    { '<leader>gg', '<cmd>lua _LAZYGIT_TOGGLE()<CR>',            desc = 'Lazygit' },
-    { '<leader>ld', require('utils.telescope').toggleLazydocker, desc = 'Lazydocker' },
-    { "<leader>:",  "<cmd>Telescope command_history<cr>",        desc = "Command History" },
-    { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>",    desc = "Document diagnostics" },
-    { "<leader>sD", "<cmd>Telescope diagnostics<cr>",            desc = "Workspace diagnostics" },
-  },
+  keys = function()
+    local telescope = require('telescope.builtin')
+    return {
+      { '<leader>lg', utils.toggle_lazygit,                     desc = 'Lazygit' },
+      { '<leader>ld', utils.toggle_lazydocker,                  desc = 'Lazydocker' },
+      { '<leader>sk', telescope.keymaps,                        desc = 'Lazydocker' },
+      { "<leader>:",  "<cmd>Telescope command_history<cr>",     desc = "Command History" },
+      { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
+      { "<leader>sD", "<cmd>Telescope diagnostics<cr>",         desc = "Workspace diagnostics" },
+    }
+  end,
 
   opts = {
     defaults = {

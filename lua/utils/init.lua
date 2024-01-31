@@ -1,7 +1,7 @@
 local M = {}
 
-M.openConfig = function()
-  os.execute('cd ~/.config/nvim')
+function M.open_config()
+  vim.cmd('cd ~/.config/nvim')
   require("telescope.builtin").find_files()
 end
 
