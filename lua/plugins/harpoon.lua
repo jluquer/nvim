@@ -3,7 +3,7 @@ return {
   dependencies = { "nvim-lua/plenary.nvim" },
   keys = {
     {
-      "<leader>a",
+      "<leader>m",
       function()
         require("harpoon.mark").add_file()
       end,
@@ -17,39 +17,18 @@ return {
       desc = "Harpoon open",
     },
     {
-      "<leader>1",
+      "<leader>n",
       function()
-        require("harpoon.ui").nav_file(1)
+        require("harpoon.ui").nav_next()
       end,
-      desc = "Harpoon jump to file 1",
+      desc = "Harpoon next file",
     },
     {
-      "<leader>2",
+      "<leader>p",
       function()
-        require("harpoon.ui").nav_file(2)
+        require("harpoon.ui").nav_prev()
       end,
-      desc = "Harpoon jump to file 2",
-    },
-    {
-      "<leader>3",
-      function()
-        require("harpoon.ui").nav_file(3)
-      end,
-      desc = "Harpoon jump to file 3",
-    },
-    {
-      "<leader>4",
-      function()
-        require("harpoon.ui").nav_file(4)
-      end,
-      desc = "Harpoon jump to file 4",
-    },
-    {
-      "<leader>5",
-      function()
-        require("harpoon.ui").nav_file(5)
-      end,
-      desc = "Harpoon jump to file 5",
+      desc = "Harpoon prev file",
     },
   },
   config = function()
