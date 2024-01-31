@@ -4,6 +4,8 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+vim.o.encoding = "UTF-8"
+
 -- Set highlight on search
 vim.o.hlsearch = false
 
