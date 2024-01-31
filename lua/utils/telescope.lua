@@ -58,7 +58,14 @@ end
 function M.find_files()
   telescope.find_files({
     hidden = true,
-    file_ignore_patterns = { 'node%_modules/.*', '.git/.*', '.vscode/.*' }
+    file_ignore_patterns = {
+      'node_modules/',
+      'node_modules\\',
+      '.git/',
+      '.git\\',
+      '.vscode/',
+      '.vscode\\',
+    }
   })
 end
 
