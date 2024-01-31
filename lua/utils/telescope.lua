@@ -2,14 +2,14 @@ local M = {}
 
 local Terminal = require("toggleterm.terminal").Terminal
 local telescope = require('telescope.builtin')
+local lazydocker = Terminal:new({ cmd = "lazydocker", hidden = true, count = 4, direction = 'float' })
+local lazygit = Terminal:new({ cmd = "lazygit", dir = 'git_dir', hidden = true, count = 4, direction = 'float' })
 
 function M.toggle_lazydocker()
-  local lazydocker = Terminal:new({ cmd = "lazydocker", hidden = true })
   lazydocker:toggle()
 end
 
 function M.toggle_lazygit()
-  local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
   lazygit:toggle()
 end
 

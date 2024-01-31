@@ -19,12 +19,30 @@ return {
     },
   },
 
-  keys = {
-    { '<C-t>',           "<CMD>ToggleTerm size=10 direction=horizontal<CR>", mode = { "n", "i", 't' }, desc = 'Toggle horizontal terminal' },
-    { '<leader>t',       "<CMD>ToggleTerm size=10 direction=horizontal<CR>", mode = { "n" },           desc = 'Toggle horizontal terminal' },
-    { '<A-i>',           "<cmd>ToggleTerm direction=float<CR>",              mode = { "n", "i", 't' }, desc = 'Toggle floating terminal' },
-    { '<Esc><Esc><Esc>', '<C-\\><C-n>',                                      mode = 't' },
-  },
+  keys = function()
+    local toggleterm = require('toggleterm')
+
+    local function float_term()
+      toggleterm.toggle(1)
+    end
+
+    local function horizontal_term()
+      toggleterm.toggle(2, nil, nil, 'horizontal')
+    end
+
+    local function horizontal_right_term()
+      toggleterm.toggle(3, nil, nil, 'horizontal')
+    end
+
+    return {
+      { '<leader>tt',      float_term,            mode = { "n" },           desc = 'Toggle horizontal terminal' },
+      { '<A-t>',           float_term,            mode = { "n", "i", 't' }, desc = 'Toggle floating terminal' },
+      { '<A-i>',           horizontal_term,       mode = { "n", "i", 't' }, desc = 'Toggle horizontal terminal' },
+      { '<A-r>',           horizontal_right_term, mode = { "n", "i", 't' }, desc = 'Toggle vertical terminal' },
+      { '<Esc><Esc><Esc>', '<C-\\><C-n>',         mode = 't' },
+      { 'kkjj',            '<C-\\><C-n>',         mode = 't' },
+    }
+  end,
 
   config = true,
 }

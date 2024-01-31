@@ -35,3 +35,7 @@ map("n", "<A-Left>", "<C-w><")
 map("n", "<A-Right>", "<C-w>>")
 map("n", "<A-Up>", "<C-w>+")
 map("n", "<A-Down>", "<C-w>-")
+
+-- disable netrw at start
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
