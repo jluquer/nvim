@@ -77,7 +77,8 @@ function M.current_buffer_fuzzy_find()
 end
 
 function M.open_config()
-  vim.cmd('cd ~/.config/nvim')
+  local config_path = require('utils').is_windows() and '~/AppData/Local/nvim/' or '~/config/nvim'
+  vim.cmd('cd ' .. config_path)
   M.find_files()
 end
 
