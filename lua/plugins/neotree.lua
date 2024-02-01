@@ -24,7 +24,8 @@ return {
         hide_gitignored = false,
         hide_by_name = {
           "node_modules",
-          ".git"
+          ".git",
+          ".vscode"
         },
         always_show = {
           '.gitignored'
