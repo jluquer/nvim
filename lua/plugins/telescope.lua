@@ -22,30 +22,30 @@ return {
     local telescope = require('telescope.builtin')
     local utils = require('utils.telescope')
     return {
-      { '<leader>lg',      utils.toggle_lazygit,                 desc = 'Lazygit' },
-      { '<leader>ld',      utils.toggle_lazydocker,              desc = 'Lazydocker' },
-      { '<leader>sk',      telescope.keymaps,                    desc = 'Keymaps' },
-      { "<leader>:",       telescope.command_history,            desc = "Command History" },
-      { '<leader>sf',      utils.find_files,                     desc = 'Go to file' },
-      { '<C-p>',           utils.find_files,                     desc = 'Go to file',                          mode = { 'n', 'i' } },
+      { '<leader>lg', utils.toggle_lazygit,                 desc = 'Lazygit' },
+      { '<leader>ld', utils.toggle_lazydocker,              desc = 'Lazydocker' },
+      { '<leader>sk', telescope.keymaps,                    desc = 'Keymaps' },
+      { "<leader>:",  telescope.command_history,            desc = "Command History" },
+      { '<leader>sf', utils.find_files,                     desc = 'Go to file' },
+      { '<C-p>',      utils.find_files,                     desc = 'Go to file',                          mode = { 'n', 'i' } },
 
       -- Diagnostics
-      { "<leader>dd",      utils.diagnostics_current_buffer,     desc = "Document diagnostics" },
-      { "<leader>dD",      telescope.diagnostics,                desc = "Workspace diagnostics" },
+      { "<leader>dd", utils.diagnostics_current_buffer,     desc = "Document diagnostics" },
+      { "<leader>dD", telescope.diagnostics,                desc = "Workspace diagnostics" },
 
-      { '<leader>?',       telescope.oldfiles,                   desc = '[?] Find recently opened files' },
-      { '<leader><space>', telescope.buffers,                    desc = '[ ] Find existing buffers' },
-      { '<leader>/',       utils.current_buffer_fuzzy_find,      desc = '[/] Fuzzily search in current buffer' },
+      { '<leader>?',  telescope.oldfiles,                   desc = '[?] Find recently opened files' },
+      { '<leader>/',  utils.current_buffer_fuzzy_find,      desc = '[/] Fuzzily search in current buffer' },
 
-      { '<leader>s/',      utils.telescope_live_grep_open_files, desc = '[s]earch [/] in open files' },
-      { '<leader>ss',      telescope.builtin,                    desc = '[s]earch [s]elect telescope' },
-      { '<leader>gf',      telescope.git_files,                  desc = 'Search [G]it [F]iles' },
-      { '<leader>sh',      telescope.help_tags,                  desc = '[S]earch [H]elp' },
-      { '<leader>sw',      telescope.grep_string,                desc = '[S]earch current [W]ord' },
-      { '<leader>sg',      telescope.live_grep,                  desc = '[S]earch by [G]rep' },
-      { '<leader>sG',      utils.live_grep_git_root,             desc = '[S]earch by [G]rep on Git Root' },
-      { '<leader>sd',      telescope.diagnostics,                desc = '[S]earch [D]iagnostics' },
-      { '<leader>sr',      telescope.resume,                     desc = '[S]earch [R]esume' },
+      { '<leader>s/', utils.telescope_live_grep_open_files, desc = '[s]earch [/] in open files' },
+      { '<leader>sb', telescope.buffers,                    desc = '[ ] Find existing buffers' },
+      { '<leader>ss', telescope.builtin,                    desc = '[s]earch [s]elect telescope' },
+      { '<leader>gf', telescope.git_files,                  desc = 'Search [G]it [F]iles' },
+      { '<leader>sh', telescope.help_tags,                  desc = '[S]earch [H]elp' },
+      { '<leader>sw', telescope.grep_string,                desc = '[S]earch current [W]ord' },
+      { '<leader>sg', telescope.live_grep,                  desc = '[S]earch by [G]rep' },
+      { '<leader>sG', utils.live_grep_git_root,             desc = '[S]earch by [G]rep on Git Root' },
+      { '<leader>sd', telescope.diagnostics,                desc = '[S]earch [D]iagnostics' },
+      { '<leader>sr', telescope.resume,                     desc = '[S]earch [R]esume' },
     }
   end,
 
