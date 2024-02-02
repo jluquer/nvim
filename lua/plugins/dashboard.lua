@@ -27,6 +27,7 @@ return {
         -- stylua: ignore
         center = {
           { action = require("persistence").load, desc = " Restore Session", icon = " ", key = "s" },
+          { action = require('telescope').extensions.projects.projects, desc = " Recent projects", icon = require('utils.icons').ui.Project, key = "p" },
           { action = "Telescope find_files", desc = " Find file", icon = " ", key = "f" },
           { action = "ene | startinsert", desc = " New file", icon = " ", key = "n" },
           { action = "Telescope oldfiles", desc = " Recent files", icon = " ", key = "r" },
