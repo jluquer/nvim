@@ -1,7 +1,7 @@
 local M = {}
 
-local Terminal = require("toggleterm.terminal").Terminal
 local telescope = require('telescope.builtin')
+local Terminal = require("toggleterm.terminal").Terminal
 local lazydocker = Terminal:new({ cmd = "lazydocker", hidden = true, count = 4, direction = 'float' })
 local lazygit = Terminal:new({ cmd = "lazygit", dir = 'git_dir', hidden = true, count = 4, direction = 'float' })
 
@@ -51,13 +51,15 @@ end
 function M.telescope_live_grep_open_files()
   telescope.live_grep {
     grep_open_files = true,
-    prompt_title = 'Live Grep in Open Files',
+    prompt_title = 'Search text in Open Files',
   }
 end
 
 function M.find_files()
   telescope.find_files({
     hidden = true,
+    previewer = false,
+    theme = 'dropdown',
     file_ignore_patterns = {
       'node_modules/',
       'node_modules\\',

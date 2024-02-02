@@ -20,37 +20,162 @@ return {
 
   keys = function()
     local telescope = require('telescope.builtin')
+    local extensions = require('telescope').extensions
     local utils = require('utils.telescope')
     return {
+      -- LazyApps
       { '<leader>lg', utils.toggle_lazygit,                 desc = 'Lazygit' },
       { '<leader>ld', utils.toggle_lazydocker,              desc = 'Lazydocker' },
-      { '<leader>sk', telescope.keymaps,                    desc = 'Keymaps' },
-      { "<leader>:",  telescope.command_history,            desc = "Command History" },
-      { '<leader>sf', utils.find_files,                     desc = 'Go to file' },
-      { '<C-p>',      utils.find_files,                     desc = 'Go to file',                          mode = { 'n', 'i' } },
+
+      { '<leader>bb', telescope.buffers,                    desc = '[ ] Find existing buffers' },
 
       -- Diagnostics
       { "<leader>dd", utils.diagnostics_current_buffer,     desc = "Document diagnostics" },
       { "<leader>dD", telescope.diagnostics,                desc = "Workspace diagnostics" },
 
-      { '<leader>?',  telescope.oldfiles,                   desc = '[?] Find recently opened files' },
-      { '<leader>/',  utils.current_buffer_fuzzy_find,      desc = '[/] Fuzzily search in current buffer' },
-
-      { '<leader>s/', utils.telescope_live_grep_open_files, desc = '[s]earch [/] in open files' },
-      { '<leader>sb', telescope.buffers,                    desc = '[ ] Find existing buffers' },
-      { '<leader>ss', telescope.builtin,                    desc = '[s]earch [s]elect telescope' },
-      { '<leader>gf', telescope.git_files,                  desc = 'Search [G]it [F]iles' },
-      { '<leader>sh', telescope.help_tags,                  desc = '[S]earch [H]elp' },
-      { '<leader>sw', telescope.grep_string,                desc = '[S]earch current [W]ord' },
-      { '<leader>sg', telescope.live_grep,                  desc = '[S]earch by [G]rep' },
-      { '<leader>sG', utils.live_grep_git_root,             desc = '[S]earch by [G]rep on Git Root' },
-      { '<leader>sd', telescope.diagnostics,                desc = '[S]earch [D]iagnostics' },
-      { '<leader>sr', telescope.resume,                     desc = '[S]earch [R]esume' },
+      -- Find
+      { '<C-p>',      utils.find_files,                     desc = 'Go to file',                       mode = { 'n', 'i' } },
+      { '<leader>ff', utils.find_files,                     desc = 'Go to file' },
+      { '<leader>/',  utils.current_buffer_fuzzy_find,      desc = '[/] Search text in current buffer' },
+      { "<leader>:",  telescope.command_history,            desc = "Command History" },
+      { '<leader>fk', telescope.keymaps,                    desc = 'Keymaps' },
+      { '<leader>f/', utils.telescope_live_grep_open_files, desc = '[/] in open files' },
+      { '<leader>ft', telescope.builtin,                    desc = 'Telescope builtins' },
+      { '<leader>fr', telescope.oldfiles,                   desc = '[?] Find recently opened files' },
+      { '<leader>fh', telescope.help_tags,                  desc = '[H]elp' },
+      { '<leader>fw', telescope.grep_string,                desc = 'Find current [w]ord' },
+      { '<leader>fg', telescope.live_grep,                  desc = '[G]lobal search' },
+      { '<leader>fd', telescope.diagnostics,                desc = 'Find Diagnostics' },
+      { '<leader>fl', telescope.resume,                     desc = 'Last search' },
+      { '<leader>fp', extensions.projects.projects,         desc = 'Projects' },
+      { '<leader>gf', telescope.git_files,                  desc = 'Go to [G]it [F]ile' },
+      { '<leader>gG', utils.live_grep_git_root,             desc = '[G]lobal search on Git Root' },
     }
   end,
 
   config = function()
     -- Enable telescope fzf native, if installed
     pcall(require('telescope').load_extension, 'fzf')
+
+    local icons = require "utils.icons"
+    local actions = require "telescope.actions"
+
+    local function filenameFirst(_, path)
+      local tail = vim.fs.basename(path)
+      local parent = vim.fs.dirname(path)
+      if parent == "." then
+        return tail
+      end
+      return string.format("%s\t\t%s", tail, parent)
+    end
+
+    require("telescope").setup {
+      defaults = {
+        prompt_prefix = icons.ui.Telescope .. " ",
+        selection_caret = icons.ui.Forward .. "  ",
+        entry_prefix = "   ",
+        initial_mode = "insert",
+        selection_strategy = "reset",
+        path_display = { "smart" },
+        color_devicons = true,
+        set_env = { ["COLORTERM"] = "truecolor" },
+        sorting_strategy = nil,
+        layout_strategy = nil,
+        layout_config = {},
+        vimgrep_arguments = {
+          "rg",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          -- "--hidden",
+          "--glob=!.git/",
+        },
+
+        mappings = {
+          i = {
+            ["<C-n>"] = actions.cycle_history_next,
+            ["<C-p>"] = actions.cycle_history_prev,
+
+            ["<C-j>"] = actions.move_selection_next,
+            ["<C-k>"] = actions.move_selection_previous,
+          },
+          n = {
+            ["<esc>"] = actions.close,
+            ["j"] = actions.move_selection_next,
+            ["k"] = actions.move_selection_previous,
+            ["q"] = actions.close,
+          },
+        },
+      },
+      pickers = {
+        live_grep = {
+          theme = "dropdown",
+        },
+
+        grep_string = {
+          theme = "dropdown",
+        },
+
+        find_files = {
+          theme = "dropdown",
+          previewer = false,
+          path_display = filenameFirst,
+        },
+
+        buffers = {
+          theme = "dropdown",
+          previewer = false,
+          initial_mode = "normal",
+          mappings = {
+            i = {
+              ["<C-d>"] = actions.delete_buffer,
+            },
+            n = {
+              ["dd"] = actions.delete_buffer,
+            },
+          },
+        },
+
+        planets = {
+          show_pluto = true,
+          show_moon = true,
+        },
+
+        colorscheme = {
+          enable_preview = true,
+        },
+
+        lsp_references = {
+          theme = "dropdown",
+          initial_mode = "normal",
+        },
+
+        lsp_definitions = {
+          theme = "dropdown",
+          initial_mode = "normal",
+        },
+
+        lsp_declarations = {
+          theme = "dropdown",
+          initial_mode = "normal",
+        },
+
+        lsp_implementations = {
+          theme = "dropdown",
+          initial_mode = "normal",
+        },
+      },
+      extensions = {
+        fzf = {
+          fuzzy = true,                   -- false will only do exact matching
+          override_generic_sorter = true, -- override the generic sorter
+          override_file_sorter = true,    -- override the file sorter
+          case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+        },
+      },
+    }
   end
 }

@@ -3,7 +3,7 @@ return {
 
   keys = {
     {
-      "<leader>bb",
+      "Q",
       function()
         local bd = require("mini.bufremove").delete
         if vim.bo.modified then
@@ -20,7 +20,6 @@ return {
       end,
       desc = "Delete Buffer",
     },
-    -- stylua: ignore
     { "<leader>bd", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
   },
 }

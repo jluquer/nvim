@@ -15,10 +15,11 @@ return {
   },
   config = function()
     -- UI Popup borders
-    local float_ui = { border = 'rounded' }
-    vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, float_ui)
-    vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, float_ui)
-    vim.diagnostic.config { float = float_ui, }
+    local float_style = { border = 'rounded' }
+    vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, float_style)
+    vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, float_style)
+    vim.diagnostic.config { float = float_style, }
+    require('lspconfig.ui.windows').default_options.border = 'rounded'
     vim.cmd [[highlight! link NormalFloat Text]]
 
     -- [[ Configure LSP ]]
@@ -33,19 +34,20 @@ return {
       end
 
       nmap('<leader>lr', vim.lsp.buf.rename, 'Rename')
-      nmap('<leader>la', vim.lsp.buf.code_action, '[C]ode [A]ction')
+      nmap('<leader>la', vim.lsp.buf.code_action, 'Code [A]ction')
       nmap('<leader>lf', vim.lsp.buf.format, 'Format Code')
 
+      nmap('gl', vim.diagnostic.open_float, 'Float diagnostic')
       nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
       nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
       nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
       nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-      nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-      nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+      nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+      nmap('<leader>lS', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
       -- See `:help K` for why this keymap
       nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-      nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+      nmap('<leader>lk', vim.lsp.buf.signature_help, 'Signature Documentation')
 
       -- Lesser used LSP functionality
       nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')

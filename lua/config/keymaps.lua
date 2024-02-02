@@ -36,6 +36,11 @@ map("n", "<A-Right>", "<C-w>>")
 map("n", "<A-Up>", "<C-w>+")
 map("n", "<A-Down>", "<C-w>-")
 
+-- Buffer navigation
+map("n", "<Tab>", ":bnext<CR>")
+map("n", "<S-Tab>", ":bprev<CR>")
+
+
 -- disable netrw at start
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1

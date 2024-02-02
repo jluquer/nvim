@@ -2,7 +2,6 @@ local shell = require('utils').is_windows() and "pwsh.exe" or vim.o.shell
 
 return {
   'akinsho/toggleterm.nvim',
-  version = "*",
   event = 'VeryLazy',
 
   opts = {
@@ -35,12 +34,12 @@ return {
     end
 
     return {
-      { '<leader>tt',      float_term,            mode = { "n" },           desc = 'Toggle horizontal terminal' },
-      { '<A-t>',           float_term,            mode = { "n", "i", 't' }, desc = 'Toggle floating terminal' },
-      { '<A-i>',           horizontal_term,       mode = { "n", "i", 't' }, desc = 'Toggle horizontal terminal' },
-      { '<A-r>',           horizontal_right_term, mode = { "n", "i", 't' }, desc = 'Toggle vertical terminal' },
-      { '<Esc><Esc><Esc>', '<C-\\><C-n>',         mode = 't' },
-      { 'kkjj',            '<C-\\><C-n>',         mode = 't' },
+      { '<leader>tt', float_term,            mode = { "n" },           desc = 'Toggle horizontal terminal' },
+      { '<A-t>',      float_term,            mode = { "n", "i", 't' }, desc = 'Toggle floating terminal' },
+      { '<A-i>',      horizontal_term,       mode = { "n", "i", 't' }, desc = 'Toggle horizontal terminal' },
+      { '<A-r>',      horizontal_right_term, mode = { "n", "i", 't' }, desc = 'Toggle vertical terminal' },
+      { '<Esc><Esc>', '<C-\\><C-n>',         mode = 't' },
+      { 'kkjj',       '<C-\\><C-n>',         mode = 't' },
     }
   end,
 
