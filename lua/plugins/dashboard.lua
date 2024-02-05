@@ -2,7 +2,7 @@ return {
   "nvimdev/dashboard-nvim",
   event = "VimEnter",
   dependencies = {
-    'nvim-telescope/telescope.nvim',
+    "nvim-telescope/telescope.nvim",
   },
   opts = function()
     local logo = [[
@@ -15,6 +15,7 @@ return {
 
     logo = string.rep("\n", 8) .. logo .. "\n\n"
 
+    local icons = require "utils.icons"
     local opts = {
       theme = "doom",
       hide = {
@@ -24,16 +25,55 @@ return {
       },
       config = {
         header = vim.split(logo, "\n"),
-        -- stylua: ignore
         center = {
-          { action = require("persistence").load, desc = " Restore Session", icon = " ", key = "s" },
-          { action = require('telescope').extensions.projects.projects, desc = " Recent projects", icon = require('utils.icons').ui.Project, key = "p" },
-          { action = "Telescope find_files", desc = " Find file", icon = " ", key = "f" },
-          { action = "ene | startinsert", desc = " New file", icon = " ", key = "n" },
-          { action = "Telescope oldfiles", desc = " Recent files", icon = " ", key = "r" },
-          { action = "Telescope live_grep", desc = " Find text", icon = " ", key = "g" },
-          { action = require("utils.telescope").open_config, desc = " Config", icon = " ", key = "c" },
-          { action = "qa", desc = " Quit", icon = " ", key = "q" },
+          {
+            action = require("persistence").load,
+            desc = " Restore Session",
+            icon = icons.ui.Retry,
+            key = "s",
+          },
+          {
+            action = require("telescope").extensions.projects.projects,
+            desc = " Recent projects",
+            icon = icons.ui.Project,
+            key = "p",
+          },
+          {
+            action = "Telescope find_files",
+            desc = " Find file",
+            icon = icons.ui.Search,
+            key = "f",
+          },
+          {
+            action = "ene | startinsert",
+            desc = " New file",
+            icon = icons.ui.NewFile,
+            key = "n",
+          },
+          {
+            action = "Telescope oldfiles",
+            desc = " Recent files",
+            icon = icons.ui.Files,
+            key = "r",
+          },
+          {
+            action = "Telescope live_grep",
+            desc = " Find text",
+            icon = icons.ui.FindText,
+            key = "g",
+          },
+          {
+            action = require("utils.telescope").open_config,
+            desc = " Config",
+            icon = icons.ui.Gear,
+            key = "c",
+          },
+          {
+            action = "qa",
+            desc = " Quit",
+            icon = icons.ui.SignOut,
+            key = "q",
+          },
         },
         footer = function()
           local stats = require("lazy").stats()
@@ -61,4 +101,7 @@ return {
 
     return opts
   end,
+  keys = {
+    { "<leader>;", ":Dashboard<cr>", desc = "Dashboard" },
+  },
 }

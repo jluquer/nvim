@@ -74,6 +74,7 @@ return {
     Stacks = "",
     Scopes = "",
     Watches = "󰂥",
+    Retry = "",
     DebugConsole = "",
     Calendar = "",
     Check = "",

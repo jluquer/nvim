@@ -81,7 +81,7 @@ end
 function M.open_config()
   local config_path = require('utils').is_windows() and '~/AppData/Local/nvim/' or '~/.config/nvim'
   vim.cmd('cd ' .. config_path)
-  M.find_files()
+  require('oil').open(config_path)
 end
 
 function M.diagnostics_current_buffer()
