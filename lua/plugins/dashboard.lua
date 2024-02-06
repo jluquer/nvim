@@ -33,7 +33,7 @@ return {
             key = "s",
           },
           {
-            action = require("telescope").extensions.projects.projects,
+            action = "Telescope projects",
             desc = " Recent projects",
             icon = icons.ui.Project,
             key = "p",

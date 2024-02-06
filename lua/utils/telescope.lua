@@ -1,9 +1,9 @@
 local M = {}
 
-local telescope = require('telescope.builtin')
+local telescope = require "telescope.builtin"
 local Terminal = require("toggleterm.terminal").Terminal
-local lazydocker = Terminal:new({ cmd = "lazydocker", hidden = true, count = 4, direction = 'float' })
-local lazygit = Terminal:new({ cmd = "lazygit", dir = 'git_dir', hidden = true, count = 4, direction = 'float' })
+local lazydocker = Terminal:new { cmd = "lazydocker", hidden = true, count = 4, direction = "float" }
+local lazygit = Terminal:new { cmd = "lazygit", dir = "git_dir", hidden = true, count = 4, direction = "float" }
 
 function M.toggle_lazydocker()
   lazydocker:toggle()
@@ -21,18 +21,17 @@ function M.find_git_root()
   local current_dir
   local cwd = vim.fn.getcwd()
   -- If the buffer is not associated with a file, return nil
-  if current_file == '' then
+  if current_file == "" then
     current_dir = cwd
   else
     -- Extract the directory from the current file's path
-    current_dir = vim.fn.fnamemodify(current_file, ':h')
+    current_dir = vim.fn.fnamemodify(current_file, ":h")
   end
 
   -- Find the Git root directory from the current file's path
-  local git_root = vim.fn.systemlist('git -C ' .. vim.fn.escape(current_dir, ' ') .. ' rev-parse --show-toplevel')
-      [1]
+  local git_root = vim.fn.systemlist("git -C " .. vim.fn.escape(current_dir, " ") .. " rev-parse --show-toplevel")[1]
   if vim.v.shell_error ~= 0 then
-    print 'Not a git repository. Searching on current working directory'
+    print "Not a git repository. Searching on current working directory"
     return cwd
   end
   return git_root
@@ -51,41 +50,25 @@ end
 function M.telescope_live_grep_open_files()
   telescope.live_grep {
     grep_open_files = true,
-    prompt_title = 'Search text in Open Files',
+    prompt_title = "Search text in Open Files",
   }
 end
 
-function M.find_files()
-  telescope.find_files({
-    hidden = true,
-    previewer = false,
-    theme = 'dropdown',
-    file_ignore_patterns = {
-      'node_modules/',
-      'node_modules\\',
-      '.git/',
-      '.git\\',
-      '.vscode/',
-      '.vscode\\',
-    }
-  })
-end
-
 function M.current_buffer_fuzzy_find()
-  telescope.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+  telescope.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown {
     winblend = 10,
     previewer = false,
   })
 end
 
 function M.open_config()
-  local config_path = require('utils').is_windows() and '~/AppData/Local/nvim/' or '~/.config/nvim'
-  vim.cmd('cd ' .. config_path)
-  require('oil').open(config_path)
+  local config_path = require("utils").is_windows() and "~/AppData/Local/nvim/" or "~/.config/nvim"
+  vim.cmd("cd " .. config_path)
+  require("oil").open(config_path)
 end
 
 function M.diagnostics_current_buffer()
-  telescope.diagnostics({ bufnr = 0 })
+  telescope.diagnostics { bufnr = 0 }
 end
 
 return M

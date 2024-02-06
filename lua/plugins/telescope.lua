@@ -1,61 +1,66 @@
 -- Fuzzy Finder (files, lsp, etc)
 return {
-  'nvim-telescope/telescope.nvim',
-  branch = '0.1.x',
+  "nvim-telescope/telescope.nvim",
+  branch = "0.1.x",
   dependencies = {
-    'nvim-lua/plenary.nvim',
+    "nvim-lua/plenary.nvim",
     -- Fuzzy Finder Algorithm which requires local dependencies to be built.
     -- Only load if `make` is available. Make sure you have the system
     -- requirements installed.
     {
-      'nvim-telescope/telescope-fzf-native.nvim',
+      "nvim-telescope/telescope-fzf-native.nvim",
       -- NOTE: If you are having trouble with this installation,
       --       refer to the README for telescope-fzf-native for more instructions.
-      build = 'make',
+      build = "make",
       cond = function()
-        return vim.fn.executable 'make' == 1
+        return vim.fn.executable "make" == 1
       end,
     },
   },
 
   keys = function()
-    local telescope = require('telescope.builtin')
-    local extensions = require('telescope').extensions
-    local utils = require('utils.telescope')
+    local telescope = require "telescope.builtin"
+    local extensions = require("telescope").extensions
+    local utils = require "utils.telescope"
     return {
       -- LazyApps
-      { '<leader>lg', utils.toggle_lazygit,                 desc = 'Lazygit' },
-      { '<leader>ld', utils.toggle_lazydocker,              desc = 'Lazydocker' },
+      { "<leader>lg", utils.toggle_lazygit, desc = "Lazygit" },
+      { "<leader>ld", utils.toggle_lazydocker, desc = "Lazydocker" },
 
-      { '<leader>bb', telescope.buffers,                    desc = '[ ] Find existing buffers' },
+      { "<leader>bb", telescope.buffers, desc = "[ ] Find existing buffers" },
 
       -- Diagnostics
-      { "<leader>dd", utils.diagnostics_current_buffer,     desc = "Document diagnostics" },
-      { "<leader>dD", telescope.diagnostics,                desc = "Workspace diagnostics" },
+      { "<leader>dd", utils.diagnostics_current_buffer, desc = "Document diagnostics" },
+      { "<leader>dD", telescope.diagnostics, desc = "Workspace diagnostics" },
 
       -- Find
-      { '<C-p>',      utils.find_files,                     desc = 'Go to file',                       mode = { 'n', 'i' } },
-      { '<leader>ff', utils.find_files,                     desc = 'Go to file' },
-      { '<leader>/',  utils.current_buffer_fuzzy_find,      desc = '[/] Search text in current buffer' },
-      { "<leader>:",  telescope.command_history,            desc = "Command History" },
-      { '<leader>fk', telescope.keymaps,                    desc = 'Keymaps' },
-      { '<leader>f/', utils.telescope_live_grep_open_files, desc = '[/] in open files' },
-      { '<leader>ft', telescope.builtin,                    desc = 'Telescope builtins' },
-      { '<leader>fr', telescope.oldfiles,                   desc = '[?] Find recently opened files' },
-      { '<leader>fh', telescope.help_tags,                  desc = '[H]elp' },
-      { '<leader>fw', telescope.grep_string,                desc = 'Find current [w]ord' },
-      { '<leader>fg', telescope.live_grep,                  desc = '[G]lobal search' },
-      { '<leader>fd', telescope.diagnostics,                desc = 'Find Diagnostics' },
-      { '<leader>fl', telescope.resume,                     desc = 'Last search' },
-      { '<leader>fp', extensions.projects.projects,         desc = 'Projects' },
-      { '<leader>gf', telescope.git_files,                  desc = 'Go to [G]it [F]ile' },
-      { '<leader>gG', utils.live_grep_git_root,             desc = '[G]lobal search on Git Root' },
+      {
+        "<C-p>",
+        telescope.find_files,
+        desc = "Go to file",
+        mode = { "n", "i" },
+      },
+      { "<leader>ff", telescope.find_files, desc = "Go to file" },
+      { "<leader>/", utils.current_buffer_fuzzy_find, desc = "[/] Search text in current buffer" },
+      { "<leader>:", telescope.command_history, desc = "Command History" },
+      { "<leader>fk", telescope.keymaps, desc = "Keymaps" },
+      { "<leader>f/", utils.telescope_live_grep_open_files, desc = "[/] in open files" },
+      { "<leader>ft", telescope.builtin, desc = "Telescope builtins" },
+      { "<leader>fr", telescope.oldfiles, desc = "[?] Find recently opened files" },
+      { "<leader>fh", telescope.help_tags, desc = "[H]elp" },
+      { "<leader>fw", telescope.grep_string, desc = "Find current [w]ord" },
+      { "<leader>fg", telescope.live_grep, desc = "[G]lobal search" },
+      { "<leader>fd", telescope.diagnostics, desc = "Find Diagnostics" },
+      { "<leader>fl", telescope.resume, desc = "Last search" },
+      { "<leader>fp", extensions.projects.projects, desc = "Projects" },
+      { "<leader>gf", telescope.git_files, desc = "Go to [G]it [F]ile" },
+      { "<leader>gG", utils.live_grep_git_root, desc = "[G]lobal search on Git Root" },
     }
   end,
 
   config = function()
     -- Enable telescope fzf native, if installed
-    pcall(require('telescope').load_extension, 'fzf')
+    pcall(require("telescope").load_extension, "fzf")
 
     local icons = require "utils.icons"
     local actions = require "telescope.actions"
@@ -123,6 +128,23 @@ return {
           theme = "dropdown",
           previewer = false,
           path_display = filenameFirst,
+          hidden = true,
+          find_command = {
+            "rg",
+            "--files",
+            "--glob",
+            "!{.git/*,.svelte-kit/*,target/*,node_modules/*,.vscode/*}",
+            "--path-separator",
+            "/",
+          },
+          -- file_ignore_patterns = {
+          --   "node_modules/",
+          --   "node_modules\\",
+          --   ".git/",
+          --   ".git\\",
+          --   ".vscode/",
+          --   ".vscode\\",
+          -- },
         },
 
         buffers = {
@@ -137,11 +159,6 @@ return {
               ["dd"] = actions.delete_buffer,
             },
           },
-        },
-
-        planets = {
-          show_pluto = true,
-          show_moon = true,
         },
 
         colorscheme = {
@@ -170,12 +187,15 @@ return {
       },
       extensions = {
         fzf = {
-          fuzzy = true,                   -- false will only do exact matching
+          fuzzy = true, -- false will only do exact matching
           override_generic_sorter = true, -- override the generic sorter
-          override_file_sorter = true,    -- override the file sorter
-          case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+          override_file_sorter = true, -- override the file sorter
+          case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+        },
+        projects = {
+          initial_mode = "normal",
         },
       },
     }
-  end
+  end,
 }
