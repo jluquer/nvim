@@ -34,12 +34,11 @@ return {
     end
 
     return {
-      { "<leader>tt", float_term,            mode = { "n" },           desc = "Toggle horizontal terminal" },
-      { "<A-i>",      float_term,            mode = { "n", "i", "t" }, desc = "Toggle floating terminal" },
-      { "<A-l>",      horizontal_term,       mode = { "n", "i", "t" }, desc = "Toggle horizontal terminal" },
-      { "<A-r>",      horizontal_right_term, mode = { "n", "i", "t" }, desc = "Toggle vertical terminal" },
-      { "<Esc><Esc>", "<C-\\><C-n>",         mode = "t" },
-      { "kkk",        "<C-\\><C-n>",         mode = "t" },
+      { "<leader>tt", float_term, mode = { "n" }, desc = "Toggle horizontal terminal" },
+      { "<A-i>", float_term, mode = { "n", "i", "t" }, desc = "Toggle floating terminal" },
+      { "<A-l>", horizontal_term, mode = { "n", "i", "t" }, desc = "Toggle horizontal terminal" },
+      { "<A-r>", horizontal_right_term, mode = { "n", "i", "t" }, desc = "Toggle vertical terminal" },
+      { "<Esc><Esc>", "<C-\\><C-n>", mode = "t" },
     }
   end,
 

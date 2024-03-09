@@ -13,7 +13,7 @@ function M.config()
       formatting.stylua,
       formatting.prettier,
       formatting.prettier.with {
-        extra_filetypes = { "toml" },
+        extra_filetypes = { "toml", "astro" },
         extra_args = { "--single-quote", "--jsx-single-quote" },
       },
       -- formatting.eslint,

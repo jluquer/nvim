@@ -65,7 +65,6 @@ function M.config()
   local icons = require "utils.icons"
   local types = require "cmp.types"
 
-
   cmp.setup {
     snippet = {
       expand = function(args)
@@ -89,6 +88,7 @@ function M.config()
         cmp.mapping.select_next_item { behavior = types.cmp.SelectBehavior.Select },
         { "i", "c" }
       ),
+      ["<C-y>"] = cmp.mapping.confirm { select = true },
       ["<C-h>"] = function()
         if cmp.visible_docs() then
           cmp.close_docs()
@@ -171,12 +171,12 @@ function M.config()
 
           local color_name, color_number
           if
-              words[2] == "x"
-              or words[2] == "y"
-              or words[2] == "t"
-              or words[2] == "b"
-              or words[2] == "l"
-              or words[2] == "r"
+            words[2] == "x"
+            or words[2] == "y"
+            or words[2] == "t"
+            or words[2] == "b"
+            or words[2] == "l"
+            or words[2] == "r"
           then
             color_name = words[3]
             color_number = words[4]

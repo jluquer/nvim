@@ -13,6 +13,12 @@ function M.toggle_lazygit()
   lazygit:toggle()
 end
 
+function M.toggle_lazygit_nvim_config()
+  local lazygit =
+      Terminal:new { cmd = "lazygit", dir = vim.fn.stdpath "config", hidden = true, count = 4, direction = "float" }
+  lazygit:toggle()
+end
+
 -- Telescope live_grep in git root
 -- Function to find the git root directory based on the current buffer's path
 function M.find_git_root()
