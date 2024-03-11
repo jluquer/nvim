@@ -24,15 +24,15 @@ return {
     local utils = require "utils.telescope"
     return {
       -- LazyApps
-      { "<leader>ld", utils.toggle_lazydocker,          desc = "Lazydocker" },
-      { "<leader>lg", utils.toggle_lazygit,             desc = "Lazygit" },
-      { "<leader>lc", utils.toggle_lazygit_nvim_config, desc = "Lazygit nvim config" },
+      { "<leader>ld",       utils.toggle_lazydocker,          desc = "Lazydocker" },
+      { "<leader>lg",       utils.toggle_lazygit,             desc = "Lazygit" },
+      { "<leader>lc",       utils.toggle_lazygit_nvim_config, desc = "Lazygit nvim config" },
 
-      { "<leader>bb", telescope.buffers,                desc = "[ ] Find existing buffers" },
+      { "<leader><leader>", telescope.buffers,                desc = "[ ] Find existing buffers" },
 
       -- Diagnostics
-      { "<leader>dd", utils.diagnostics_current_buffer, desc = "Document diagnostics" },
-      { "<leader>dD", telescope.diagnostics,            desc = "Workspace diagnostics" },
+      { "<leader>dd",       utils.diagnostics_current_buffer, desc = "Document diagnostics" },
+      { "<leader>dw",       telescope.diagnostics,            desc = "Workspace diagnostics" },
 
       -- Find
       {
@@ -41,18 +41,21 @@ return {
         desc = "Go to file",
         mode = { "n", "i" },
       },
-      { "<leader>ff", telescope.find_files,                 desc = "Go to file" },
       { "<leader>/",  utils.current_buffer_fuzzy_find,      desc = "[/] Search text in current buffer" },
       { "<leader>:",  telescope.command_history,            desc = "Command History" },
-      { "<leader>fk", telescope.keymaps,                    desc = "Keymaps" },
       { "<leader>f/", utils.telescope_live_grep_open_files, desc = "[/] in open files" },
+      { "<leader>ff", telescope.find_files,                 desc = "Go to file" },
+      { "<leader>fF", telescope.git_files,                  desc = "Go to [G]it [F]ile" },
+      { "<leader>fk", telescope.keymaps,                    desc = "Keymaps" },
       { "<leader>ft", telescope.builtin,                    desc = "Telescope builtins" },
       { "<leader>fr", telescope.oldfiles,                   desc = "[?] Find recently opened files" },
       { "<leader>fh", telescope.help_tags,                  desc = "[H]elp" },
       { "<leader>fw", telescope.grep_string,                desc = "Find current [w]ord" },
       { "<leader>fg", telescope.live_grep,                  desc = "[G]lobal search" },
+      { "<leader>fG", utils.live_grep_git_root,             desc = "[G]lobal search on Git Root" },
       { "<leader>fd", telescope.diagnostics,                desc = "Find Diagnostics" },
       { "<leader>fl", telescope.resume,                     desc = "Last search" },
+      { "<leader>fp", extensions.projects.projects,         desc = "Projects" },
       {
         "<leader>fc",
         function()
@@ -60,9 +63,6 @@ return {
         end,
         desc = "Find in neovim config",
       },
-      { "<leader>fp", extensions.projects.projects, desc = "Projects" },
-      { "<leader>gf", telescope.git_files,          desc = "Go to [G]it [F]ile" },
-      { "<leader>gG", utils.live_grep_git_root,     desc = "[G]lobal search on Git Root" },
     }
   end,
 
@@ -114,6 +114,13 @@ return {
 
             ["<C-j>"] = actions.move_selection_next,
             ["<C-k>"] = actions.move_selection_previous,
+            ["<C-t>"] = function(bufnr)
+              require("telescope.actions.set").edit(bufnr, "tab drop")
+            end,
+            ["<C-CR>"] = actions.select_default,
+            ["<CR>"] = function(bufnr)
+              require("telescope.actions.set").edit(bufnr, "tab drop")
+            end,
           },
           n = {
             ["<esc>"] = actions.close,
@@ -202,6 +209,7 @@ return {
         },
         projects = {
           initial_mode = "normal",
+          theme = "dropdown",
         },
       },
     }

@@ -72,7 +72,7 @@ return {
             line.sep("", hl, theme.fill),
             tab.is_current() and "" or "",
             tab_name(tab),
-            -- tab.close_btn("󰅖 "),
+            tab.close_btn "󰅖 ",
             -- window_count(tab),
             -- change_mark(tab),
             -- line.sep(" ", hl, theme.fill),
@@ -90,11 +90,11 @@ return {
     })
   end,
   keys = {
-    { "<leader>ta",  ":$tabnew<CR>",  desc = 'Add tab' },
-    { "<leader>tc",  ":tabclose<CR>", desc = 'Close tab' },
-    { "<leader>tn",  ":tabn<CR>",     desc = 'Next tab' },
-    { "<leader>tp",  ":tabp<CR>",     desc = 'Previous tab' },
+    { "<leader>ta",  ":$tabnew<CR>",  desc = "Add tab" },
+    { "<leader>tc",  ":tabclose<CR>", desc = "Close tab" },
+    { "<leader>tn",  ":tabn<CR>",     desc = "Next tab" },
+    { "<leader>tp",  ":tabp<CR>",     desc = "Previous tab" },
     { "<leader>tmp", ":-tabmove<CR>" },
     { "<leader>tmn", ":+tabmove<CR>" },
-  }
+  },
 }
