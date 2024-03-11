@@ -23,15 +23,15 @@ return {
     local utils = require "utils.telescope"
     return {
       -- LazyApps
-      { "<leader>ld",       utils.toggle_lazydocker,          desc = "Lazydocker" },
-      { "<leader>lg",       utils.toggle_lazygit,             desc = "Lazygit" },
-      { "<leader>lc",       utils.toggle_lazygit_nvim_config, desc = "Lazygit nvim config" },
+      { "<leader>ld", utils.toggle_lazydocker,          desc = "Lazydocker" },
+      { "<leader>lg", utils.toggle_lazygit,             desc = "Lazygit" },
+      { "<leader>lc", utils.toggle_lazygit_nvim_config, desc = "Lazygit nvim config" },
 
-      { "<leader><leader>", telescope.buffers,                desc = "[ ] Find existing buffers" },
+      { "<leader>bb", telescope.buffers,                desc = "[ ] Find existing buffers" },
 
       -- Diagnostics
-      { "<leader>dd",       utils.diagnostics_current_buffer, desc = "Document diagnostics" },
-      { "<leader>dw",       telescope.diagnostics,            desc = "Workspace diagnostics" },
+      { "<leader>dd", utils.diagnostics_current_buffer, desc = "Document diagnostics" },
+      { "<leader>dw", telescope.diagnostics,            desc = "Workspace diagnostics" },
 
       -- Find
       {

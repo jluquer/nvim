@@ -10,14 +10,14 @@ return {
       desc = "Harpoon mark",
     },
     {
-      "<leader>o",
+      "<leader><leader>",
       function()
         require("harpoon.ui").toggle_quick_menu()
       end,
       desc = "Harpoon open",
     },
     {
-      "<leader>n",
+      "<leader><Tab>",
       function()
         require("harpoon.ui").nav_next()
       end,
@@ -32,6 +32,6 @@ return {
     },
   },
   config = function()
-    require("telescope").load_extension("harpoon")
+    require("telescope").load_extension "harpoon"
   end,
 }
