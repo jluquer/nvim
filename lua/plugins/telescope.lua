@@ -20,7 +20,6 @@ return {
 
   keys = function()
     local telescope = require "telescope.builtin"
-    local extensions = require("telescope").extensions
     local utils = require "utils.telescope"
     return {
       -- LazyApps
@@ -55,7 +54,7 @@ return {
       { "<leader>fG", utils.live_grep_git_root,             desc = "[G]lobal search on Git Root" },
       { "<leader>fd", telescope.diagnostics,                desc = "Find Diagnostics" },
       { "<leader>fl", telescope.resume,                     desc = "Last search" },
-      { "<leader>fp", extensions.projects.projects,         desc = "Projects" },
+      { "<leader>fp", utils.find_projects,                  desc = "Projects" },
       {
         "<leader>fc",
         function()
@@ -72,6 +71,7 @@ return {
 
     local icons = require "utils.icons"
     local actions = require "telescope.actions"
+    local utils = require "utils.telescope"
 
     local function filenameFirst(_, path)
       local tail = vim.fs.basename(path)
@@ -114,13 +114,9 @@ return {
 
             ["<C-j>"] = actions.move_selection_next,
             ["<C-k>"] = actions.move_selection_previous,
-            ["<C-t>"] = function(bufnr)
-              require("telescope.actions.set").edit(bufnr, "tab drop")
-            end,
-            ["<C-CR>"] = actions.select_default,
-            ["<CR>"] = function(bufnr)
-              require("telescope.actions.set").edit(bufnr, "tab drop")
-            end,
+
+            ["<C-t>"] = utils.select_tab,
+            ["<C-space>"] = utils.select_tab,
           },
           n = {
             ["<esc>"] = actions.close,

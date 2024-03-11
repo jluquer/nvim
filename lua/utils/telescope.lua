@@ -73,6 +73,18 @@ function M.open_config()
   require("oil").open(config_path)
 end
 
+function M.find_projects()
+  local extensions = require("telescope").extensions
+  extensions.projects.projects(require("telescope.themes").get_dropdown {
+    winblend = 10,
+    previewer = false,
+  })
+end
+
+function M.select_tab(bufnr)
+  require("telescope.actions.set").edit(bufnr, "tab drop")
+end
+
 function M.diagnostics_current_buffer()
   telescope.diagnostics { bufnr = 0 }
 end

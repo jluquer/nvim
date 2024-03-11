@@ -33,7 +33,13 @@ return {
             key = "s",
           },
           {
-            action = "Telescope projects",
+            action = "Oil",
+            desc = " Explorer",
+            icon = icons.ui.EmptyFolderOpen,
+            key = "e",
+          },
+          {
+            action = require("utils.telescope").find_projects,
             desc = " Recent projects",
             icon = icons.ui.Project,
             key = "p",
