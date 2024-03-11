@@ -3,11 +3,11 @@ return {
   dependencies = { "nvim-lua/plenary.nvim" },
   keys = {
     {
-      "<leader>m",
+      "<leader>o",
       function()
-        require("harpoon.mark").add_file()
+        require("harpoon.ui").toggle_quick_menu()
       end,
-      desc = "Harpoon mark",
+      desc = "Harpoon open",
     },
     {
       "<leader><leader>",
@@ -15,6 +15,27 @@ return {
         require("harpoon.ui").toggle_quick_menu()
       end,
       desc = "Harpoon open",
+    },
+    {
+      "<leader>h",
+      function()
+        require("harpoon.mark").toggle_file()
+      end,
+      desc = "Harpoon toogle",
+    },
+    {
+      "<leader>m",
+      function()
+        require("harpoon.mark").add_file()
+      end,
+      desc = "Harpoon mark",
+    },
+    {
+      "<leader>u",
+      function()
+        require("harpoon.mark").rm_file()
+      end,
+      desc = "Harpoon remove mark",
     },
     {
       "<leader><Tab>",
