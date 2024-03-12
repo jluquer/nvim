@@ -11,10 +11,9 @@ return {
       ["g"] = { name = "[G]it", _ = "which_key_ignore" },
       ["h"] = { name = "Git [H]unk", _ = "which_key_ignore" },
       ["l"] = { name = "[L]SP and LazyApps", _ = "which_key_ignore" },
-      ["w"] = { name = "Session", _ = "which_key_ignore" },
       ["r"] = { name = "[R]ename", _ = "which_key_ignore" },
       ["t"] = { name = "[T]erminal & Tabs", _ = "which_key_ignore", m = "Move tab" },
-      ["w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
+      ["w"] = { name = "Session", _ = "which_key_ignore" },
     }, { prefix = "<leader>" })
     -- register which-key VISUAL mode
     -- required for visual <leader>hs (hunk stage) to work
