@@ -82,6 +82,14 @@ return {
       return string.format("%s\t\t%s", tail, parent)
     end
 
+    local open_new_tab_mappings = {
+      i = {
+        ["<A-CR>"] = actions.select_default,
+        ["<S-CR>"] = actions.select_default,
+        ["<CR>"] = utils.select_tab,
+      },
+    }
+
     require("telescope").setup {
       defaults = {
         prompt_prefix = icons.ui.Telescope .. " ",
@@ -128,10 +136,12 @@ return {
       pickers = {
         live_grep = {
           theme = "dropdown",
+          mappings = open_new_tab_mappings,
         },
 
         grep_string = {
           theme = "dropdown",
+          mappings = open_new_tab_mappings,
         },
 
         find_files = {
@@ -139,12 +149,7 @@ return {
           previewer = false,
           path_display = filenameFirst,
           hidden = true,
-          mappings = {
-            i = {
-              ["<A-CR>"] = actions.select_default,
-              ["<CR>"] = actions.select_tab,
-            },
-          },
+          mappings = open_new_tab_mappings,
           find_command = {
             "rg",
             "--files",
@@ -170,6 +175,7 @@ return {
           mappings = {
             i = {
               ["<C-d>"] = actions.delete_buffer,
+              unpack(open_new_tab_mappings.i),
             },
             n = {
               ["dd"] = actions.delete_buffer,
