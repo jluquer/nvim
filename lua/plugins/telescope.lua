@@ -116,7 +116,6 @@ return {
             ["<C-k>"] = actions.move_selection_previous,
 
             ["<C-t>"] = utils.select_tab,
-            ["<C-space>"] = utils.select_tab,
           },
           n = {
             ["<esc>"] = actions.close,
@@ -140,6 +139,12 @@ return {
           previewer = false,
           path_display = filenameFirst,
           hidden = true,
+          mappings = {
+            i = {
+              ["<A-CR>"] = actions.select_default,
+              ["<CR>"] = actions.select_tab,
+            },
+          },
           find_command = {
             "rg",
             "--files",
