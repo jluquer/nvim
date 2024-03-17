@@ -134,7 +134,6 @@ return {
       },
       astro = {},
       marksman = {},
-      sqls = {},
       unpack(require "plugins.lspsettings.lua_ls"),
       unpack(require "plugins.lspsettings.bashls"),
     }
@@ -198,14 +197,14 @@ return {
         local client = vim.lsp.get_client_by_id(client_id)
         local bufnr = args.buf
 
-        -- Only attach to clients that support document formatting
-        if not client.server_capabilities.documentFormattingProvider then
+        -- null-ls formatter
+        if client.name == "tsserver" then
           return
         end
 
-        -- null-ls formatter
-        if client.name == "sqls" or client.name == "tsserver" then
-          client.server_capabilities.documentFormattingProvider = false
+        -- Only attach to clients that support document formatting
+        if not client.server_capabilities.documentFormattingProvider then
+          return
         end
 
         -- Create an autocmd that will run *before* we save the buffer.
