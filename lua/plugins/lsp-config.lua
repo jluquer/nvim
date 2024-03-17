@@ -47,32 +47,34 @@ return {
     -- [[ Configure LSP ]]
     --  This function gets run when an LSP connects to a particular buffer.
     local on_attach = function(_, bufnr)
-      local nmap = function(keys, func, desc)
+      local map = function(keys, func, desc, mode)
+        mode = mode or "n"
         if desc then
           desc = "LSP: " .. desc
         end
 
-        vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+        vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
       end
 
-      nmap("<leader>lr", vim.lsp.buf.rename, "Rename")
-      nmap("<leader>la", vim.lsp.buf.code_action, "Code [A]ction")
-      nmap("<leader>lf", vim.lsp.buf.format, "Format Code")
+      map("<leader>lr", vim.lsp.buf.rename, "Rename")
+      map("<leader>la", vim.lsp.buf.code_action, "Code [A]ction")
+      map("<leader>lf", vim.lsp.buf.format, "Format Code")
+      map("<Leader>lf", vim.lsp.buf.format, "Format selected code", "v")
 
-      nmap("gl", vim.diagnostic.open_float, "Float diagnostic")
-      nmap("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-      nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-      nmap("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-      nmap("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-      nmap("<leader>ls", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-      nmap("<leader>lS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+      map("gl", vim.diagnostic.open_float, "Float diagnostic")
+      map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+      map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+      map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+      map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
+      map("<leader>ls", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+      map("<leader>lS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 
       -- See `:help K` for why this keymap
-      nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-      nmap("J", vim.lsp.buf.signature_help, "Signature Documentation")
+      map("K", vim.lsp.buf.hover, "Hover Documentation")
+      map("J", vim.lsp.buf.signature_help, "Signature Documentation")
 
       -- Lesser used LSP functionality
-      nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+      map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
       -- Create a command `:Format` local to the LSP buffer
       vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
@@ -130,53 +132,11 @@ return {
           },
         },
       },
-      bashls = {
-        filetypes = { "sh", "zsh", "bash" },
-        settings = {
-          bashIde = {
-            globPattern = "*@(.sh|.inc|.bash|.command|.zsh|zshrc|zsh_*)",
-          },
-        },
-      },
       astro = {},
       marksman = {},
-      lua_ls = {
-        settings = {
-          Lua = {
-            format = {
-              enable = false,
-            },
-            diagnostics = {
-              globals = { "vim", "spec" },
-            },
-            runtime = {
-              version = "LuaJIT",
-              special = {
-                spec = "require",
-              },
-            },
-            workspace = {
-              checkThirdParty = false,
-              library = {
-                [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-                [vim.fn.stdpath "config" .. "/lua"] = true,
-              },
-            },
-            hint = {
-              enable = false,
-              arrayIndex = "Disable", -- "Enable" | "Auto" | "Disable"
-              await = true,
-              paramName = "Disable",  -- "All" | "Literal" | "Disable"
-              paramType = true,
-              semicolon = "All",      -- "All" | "SameLine" | "Disable"
-              setType = false,
-            },
-            telemetry = {
-              enable = false,
-            },
-          },
-        },
-      },
+      sqls = {},
+      unpack(require "plugins.lspsettings.lua_ls"),
+      unpack(require "plugins.lspsettings.bashls"),
     }
 
     -- Setup neovim lua configuration
@@ -195,11 +155,12 @@ return {
 
     mason_lspconfig.setup_handlers {
       function(server_name)
+        local server = servers[server_name] or {}
         require("lspconfig")[server_name].setup {
           capabilities = capabilities,
           on_attach = on_attach,
-          settings = servers[server_name],
-          filetypes = (servers[server_name] or {}).filetypes,
+          settings = server,
+          filetypes = server.filetypes,
         }
       end,
     }
@@ -242,9 +203,9 @@ return {
           return
         end
 
-        -- Tsserver usually works poorly.
-        if client.name == "tsserver" then
-          return
+        -- null-ls formatter
+        if client.name == "sqls" or client.name == "tsserver" then
+          client.server_capabilities.documentFormattingProvider = false
         end
 
         -- Create an autocmd that will run *before* we save the buffer.

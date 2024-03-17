@@ -16,6 +16,7 @@ function M.config()
         extra_filetypes = { "toml", "astro" },
         extra_args = { "--single-quote", "--jsx-single-quote" },
       },
+      formatting.sql_formatter,
       -- formatting.eslint,
       null_ls.builtins.diagnostics.eslint,
       null_ls.builtins.completion.spell,
