@@ -18,6 +18,7 @@ map("n", "<leader>dq", vim.diagnostic.setloclist, { desc = "Open diagnostics lis
 -- Save or quit
 map({ "n", "i" }, "<C-s>", "<CMD>update<CR>")
 map({ "n" }, "<leader>ww", ":wqa<CR>", { desc = "Close all and save" })
+map({ "n" }, "<leader>wa", ":wqa<CR>", { desc = "Close all without saving" })
 
 -- Lines
 map("n", "<A-k>", ":m .-2<CR>")
