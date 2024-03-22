@@ -11,10 +11,10 @@ function M.config()
     debug = true,
     sources = {
       formatting.stylua,
-      formatting.prettier,
+      -- formatting.prettier,
       formatting.prettier.with {
         extra_filetypes = { "toml", "astro" },
-        extra_args = { "--single-quote", "--jsx-single-quote" },
+        -- extra_args = { "--single-quote", "--jsx-single-quote" },
       },
       -- formatting.eslint,
       null_ls.builtins.diagnostics.eslint,
