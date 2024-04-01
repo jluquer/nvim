@@ -8,7 +8,7 @@ return {
 
     -- Useful status updates for LSP
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-    { "j-hui/fidget.nvim",       opts = {} },
+    { "j-hui/fidget.nvim", opts = {} },
 
     -- Additional lua configuration, makes nvim stuff amazing!
     "folke/neodev.nvim",
@@ -22,9 +22,9 @@ return {
         active = true,
         values = {
           { name = "DiagnosticSignError", text = icons.diagnostics.Error },
-          { name = "DiagnosticSignWarn",  text = icons.diagnostics.Warning },
-          { name = "DiagnosticSignHint",  text = icons.diagnostics.Hint },
-          { name = "DiagnosticSignInfo",  text = icons.diagnostics.Information },
+          { name = "DiagnosticSignWarn", text = icons.diagnostics.Warning },
+          { name = "DiagnosticSignHint", text = icons.diagnostics.Hint },
+          { name = "DiagnosticSignInfo", text = icons.diagnostics.Information },
         },
       },
       virtual_text = false,
@@ -78,7 +78,9 @@ return {
 
       -- Create a command `:Format` local to the LSP buffer
       vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-        vim.lsp.buf.format()
+        vim.lsp.buf.format {
+          timeout_ms = 2000,
+        }
       end, { desc = "Format current buffer with LSP" })
     end
 
@@ -219,6 +221,7 @@ return {
 
             vim.lsp.buf.format {
               async = false,
+              timeout_ms = 2000,
               filter = function(c)
                 return c.id == client.id
               end,
