@@ -82,6 +82,13 @@ return {
       return string.format("%s\t\t%s", tail, parent)
     end
 
+    local excluded_files = ".git/*,.svelte-kit/*,target/*,node_modules/*,.vscode/*,.next/*"
+    local include_files = "!.env,!.env.*"
+    if string.len(excluded_files) > 0 and string.len(include_files) > 0 then
+      excluded_files = excluded_files .. ","
+    end
+    local file_exceptions = "--glob=!{" .. excluded_files .. include_files .. "}"
+
     require("telescope").setup {
       defaults = {
         prompt_prefix = icons.ui.Telescope .. " ",
@@ -103,8 +110,8 @@ return {
           "--line-number",
           "--column",
           "--smart-case",
-          "-u",
-          "--glob=!{.git/*,.svelte-kit/*,target/*,node_modules/*,.vscode/*,.next/*}",
+          "--hidden",
+          file_exceptions,
           "--path-separator=/",
         },
 
@@ -143,12 +150,11 @@ return {
           theme = "dropdown",
           previewer = false,
           path_display = filenameFirst,
-          hidden = true,
           find_command = {
             "rg",
             "--files",
-            "--glob=!{.git/*,.svelte-kit/*,target/*,node_modules/*,.vscode/*,.next/*}",
-            "-u",
+            "--hidden",
+            file_exceptions,
             "--path-separator=/",
           },
           -- file_ignore_patterns = {

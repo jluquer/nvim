@@ -124,31 +124,11 @@ return {
         tailwindcss = {},
         eslint = {},
         dockerls = {},
-        jsonls = {
-          settings = {
-            json = {
-              schemas = require("schemastore").json.schemas(),
-              validate = { enable = true },
-            },
-          },
-        },
-        yamlls = {
-          settings = {
-            yaml = {
-              schemaStore = {
-                -- You must disable built-in schemaStore support if you want to use
-                -- this plugin and its advanced options like `ignore`.
-                enable = false,
-                -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-                url = "",
-              },
-              schemas = require("schemastore").yaml.schemas(),
-            },
-          },
-        },
         astro = {},
         marksman = {},
         sqlls = {},
+        unpack(require "plugins.lspsettings.json"),
+        unpack(require "plugins.lspsettings.yaml"),
         unpack(require "plugins.lspsettings.lua_ls"),
         unpack(require "plugins.lspsettings.bashls"),
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -172,8 +152,9 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         "stylua", -- Used to format Lua code
-        "prettier",
+        "prettierd",
         "eslint-lsp",
+        "shfmt",
       })
       require("mason-tool-installer").setup { ensure_installed = ensure_installed }
 

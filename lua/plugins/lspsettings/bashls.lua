@@ -3,7 +3,7 @@ return {
     filetypes = { "sh", "zsh", "bash" },
     settings = {
       bashIde = {
-        globPattern = "*@(.sh|.inc|.bash|.command|.zsh|zshrc|zsh_*)",
+        globPattern = "*@(.sh|.inc|.bash|.command|.zsh|zshrc|.zshrc|zsh_*)",
       },
     },
   },
