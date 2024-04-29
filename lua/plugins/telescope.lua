@@ -82,12 +82,20 @@ return {
       return string.format("%s\t\t%s", tail, parent)
     end
 
-    local excluded_files = ".git/*,.svelte-kit/*,target/*,node_modules/*,.vscode/*,.next/*"
-    local include_files = "!.env,!.env.*"
-    if string.len(excluded_files) > 0 and string.len(include_files) > 0 then
-      excluded_files = excluded_files .. ","
-    end
-    local file_exceptions = "--glob=!{" .. excluded_files .. include_files .. "}"
+    local rg_file_patterns = {
+      -- Excluded
+      ".git/*",
+      ".svelte-kit/*",
+      "target/*",
+      "node_modules/*",
+      ".vscode/*",
+      ".next/*",
+      "**/*_templ.go",
+      -- Included
+      "!.env",
+      "!.env.*",
+    }
+    local file_exceptions = "--glob=!{" .. table.concat(rg_file_patterns, ",") .. "}"
 
     require("telescope").setup {
       defaults = {
