@@ -57,8 +57,6 @@ return {
 
           map("<leader>lr", vim.lsp.buf.rename, "Rename")
           map("<leader>la", vim.lsp.buf.code_action, "Code [A]ction")
-          -- map("<leader>lf", vim.lsp.buf.format, "Format Code")
-          -- map("<Leader>lf", vim.lsp.buf.format, "Format selected code", "v")
 
           map("gl", vim.diagnostic.open_float, "Float diagnostic")
           map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
@@ -78,23 +76,36 @@ return {
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           if client and client.server_capabilities.documentHighlightProvider then
+            local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
               buffer = event.buf,
+              group = highlight_augroup,
               callback = vim.lsp.buf.document_highlight,
             })
 
             vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
               buffer = event.buf,
+              group = highlight_augroup,
               callback = vim.lsp.buf.clear_references,
             })
+
+            vim.api.nvim_create_autocmd("LspDetach", {
+              group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+              callback = function(event2)
+                vim.lsp.buf.clear_references()
+                vim.api.nvim_clear_autocmds { group = "kickstart-lsp-highlight", buffer = event2.buf }
+              end,
+            })
+          end
+
+          if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+            map("<leader>li", function()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+            end, "Toggle Inlay Hints")
           end
         end,
       })
 
-      -- LSP servers and clients are able to communicate to each other what features they support.
-      --  By default, Neovim doesn't support everything that is in the LSP specification.
-      --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-      --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
@@ -105,7 +116,16 @@ return {
       --  settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
+        pyright = {},
         gopls = {},
+        templ = {},
+        astro = {},
+        htmx = {},
+        html = { filetypes = { "html", "twig", "templ" } },
+        tailwindcss = {
+          filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+          init_options = { userLanguages = { templ = "html" } },
+        },
         cssls = {
           settings = {
             css = {
@@ -119,40 +139,32 @@ return {
             },
           },
         },
-        pyright = {},
-        html = { filetypes = { "html", "twig", "hbs" } },
-        tailwindcss = {},
         eslint = {},
         dockerls = {},
-        astro = {},
         marksman = {},
-        sqlls = {},
-        unpack(require "plugins.lspsettings.json"),
-        unpack(require "plugins.lspsettings.yaml"),
-        unpack(require "plugins.lspsettings.lua_ls"),
-        unpack(require "plugins.lspsettings.bashls"),
+        sqlls = {
+          root_dir = function(_)
+            return vim.loop.cwd()
+          end,
+        },
+        table.unpack(require "plugins.lspsettings.json"),
+        table.unpack(require "plugins.lspsettings.yaml"),
+        table.unpack(require "plugins.lspsettings.lua_ls"),
+        table.unpack(require "plugins.lspsettings.bashls"),
         -- Some languages (like typescript) have entire language plugins that can be useful:
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
-        --
       }
 
-      -- Ensure the servers and tools above are installed
-      --  To check the current status of installed tools and/or manually install
-      --  other tools, you can run
-      --    :Mason
-      --
-      --  You can press `g?` for help in this menu.
+      --  :Mason - You can press `g?` for help in this menu.
       require("mason").setup()
 
-      -- You can add other tools here that you want Mason to install
-      -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         "stylua", -- Used to format Lua code
-        "prettierd",
+        "prettier",
         "eslint-lsp",
         "shfmt",
       })

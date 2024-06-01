@@ -265,7 +265,7 @@ function M.config()
       end,
     },
     sources = {
-      { name = "copilot" },
+      -- { name = "copilot" },
       {
         name = "nvim_lsp",
         entry_filter = function(entry, ctx)
@@ -286,7 +286,7 @@ function M.config()
         end,
       },
       { name = "luasnip" },
-      { name = "cmp_tabnine" },
+      -- { name = "cmp_tabnine" },
       { name = "nvim_lua" },
       { name = "buffer" },
       { name = "path" },
@@ -294,7 +294,7 @@ function M.config()
       { name = "emoji" },
       { name = "treesitter" },
       { name = "crates" },
-      { name = "tmux" },
+      -- { name = "tmux" },
     },
     confirm_opts = {
       behavior = cmp.ConfirmBehavior.Replace,
