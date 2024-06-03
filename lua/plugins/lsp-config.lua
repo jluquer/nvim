@@ -147,16 +147,17 @@ return {
             return vim.loop.cwd()
           end,
         },
-        table.unpack(require "plugins.lspsettings.json"),
-        table.unpack(require "plugins.lspsettings.yaml"),
-        table.unpack(require "plugins.lspsettings.lua_ls"),
-        table.unpack(require "plugins.lspsettings.bashls"),
         -- Some languages (like typescript) have entire language plugins that can be useful:
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
       }
+
+      servers = vim.tbl_deep_extend("force", servers, require "plugins.lspsettings.json")
+      servers = vim.tbl_deep_extend("force", servers, require "plugins.lspsettings.yaml")
+      servers = vim.tbl_deep_extend("force", servers, require "plugins.lspsettings.lua_ls")
+      servers = vim.tbl_deep_extend("force", servers, require "plugins.lspsettings.bashls")
 
       --  :Mason - You can press `g?` for help in this menu.
       require("mason").setup()
