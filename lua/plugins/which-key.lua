@@ -4,23 +4,16 @@ return {
   init = function()
     local wk = require "which-key"
     -- document existing key chains
-    wk.register({
-      ["b"] = { name = "[B]uffer", _ = "which_key_ignore" },
-      ["d"] = { name = "[D]ocument", _ = "which_key_ignore" },
-      ["f"] = { name = "[F]ind", _ = "which_key_ignore" },
-      ["g"] = { name = "[G]it", _ = "which_key_ignore" },
-      ["h"] = { name = "Git [H]unk", _ = "which_key_ignore" },
-      ["l"] = { name = "[L]SP and LazyApps", _ = "which_key_ignore" },
-      ["r"] = { name = "[R]ename", _ = "which_key_ignore" },
-      ["t"] = { name = "[T]erminal & Tabs", _ = "which_key_ignore", m = "Move tab" },
-      ["w"] = { name = "Session", _ = "which_key_ignore" },
-    }, { prefix = "<leader>" })
-    -- register which-key VISUAL mode
-    -- required for visual <leader>hs (hunk stage) to work
-    wk.register({
-      ["<leader>"] = { name = "VISUAL <leader>" },
-      ["<leader>h"] = { "Git [H]unk" },
-    }, { mode = "v" })
+    wk.add {
+      { "<leader>b", group = "[B]uffer" },
+      { "<leader>d", group = "[D]ocument" },
+      { "<leader>f", group = "[F]ind" },
+      { "<leader>g", group = "[G]it" },
+      { "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
+      { "<leader>r", group = "[R]ename" },
+      { "<leader>t", group = "[T]erminal & Tabs" },
+      { "<leader>w", group = "[W]orkspace session" },
+    }
   end,
   opts = {},
 }
