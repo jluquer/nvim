@@ -38,7 +38,9 @@ return {
           "<cmd>TSToolsAddMissingImports<cr>",
           { buffer = bufnr, desc = "Add Missing Imports" }
         )
-        lspconfig.on_attach(client, bufnr)
+        if lspconfig ~= nil and lspconfig.on_attach ~= nil then
+          lspconfig.on_attach(client, bufnr)
+        end
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
       end,
