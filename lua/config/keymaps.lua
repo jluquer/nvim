@@ -3,8 +3,8 @@
 -- Add any additional keymaps here
 local map = LazyVim.safe_keymap_set
 local lazyterm = function()
-  ---@diagnostic disable-next-line: redundant-parameter
-  LazyVim.terminal(nil, { cwd = LazyVim.root() })
+  -- LazyVim.terminal(nil, { cwd = LazyVim.root() })
+  Snacks.terminal(nil, { cwd = LazyVim.root() })
 end
 map("n", "<A-i>", lazyterm, { desc = "Terminal (Root Dir)" })
 map("t", "<A-i>", "<cmd>close<cr>", { desc = "Hide Terminal" })
